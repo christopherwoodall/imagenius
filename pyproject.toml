@@ -17,6 +17,7 @@ license     = "MIT"
 dependencies = [
     "black",
     "flask",
+    "flask-cors",
     "Pillow",
     "requests",
     "torch",
