@@ -8,6 +8,10 @@
             margin-top: 20px;
             text-align: center;
         }
+        .image-results {
+            margin-top: 30px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -19,15 +23,30 @@
         <button onclick="searchTags()">Search</button>
     </div>
 
+    <!-- Container to display search results -->
+    <div class="image-results" id="imageResults">
+        <!-- Images will be appended here -->
+    </div>
 
 <script>
 function searchTags() {
+    // Clear previous search results
+    document.getElementById('imageResults').innerHTML = '';
+
     const query = document.getElementById('searchBar').value;
     fetch(`https://127.0.0.1:6000/search?query=${query}`)
     .then(response => response.json())
     .then(data => {
         // Process and display the search results
-        console.log(data);
+        Object.keys(data).forEach(imagePath => {
+            const imgElement = document.createElement('img');
+            imgElement.src = imagePath;  // Assuming the imagePath is a full URL or relative path
+            imgElement.alt = 'Found image';
+            imgElement.width = 200;  // Set width for display
+
+            // Append to the results container
+            document.getElementById('imageResults').appendChild(imgElement);
+        });
     })
     .catch(error => console.error(`Error: ${error}`));
 }
