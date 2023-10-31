@@ -34,7 +34,7 @@ def detect(query=None):
     client_results = {}
 
     for image_file in gallery_path.glob("*.jpg"):
-        image = Image.open(image_file)
+        image = Image.open(image_file).convert("RGB")
         byte_io = BytesIO()
         image.save(byte_io, "JPEG")
 
