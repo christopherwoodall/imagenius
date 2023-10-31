@@ -2,3 +2,11 @@ squirrel.jpg  https://www.flickr.com/photos/cseeman/53298793956/
 cars.jpg  https://openverse.org/image/47785e93-aea1-4e7f-915c-50cf92ec8fb9
 street.jpg  https://www.flickr.com/photos/spongeg/53297902597/
 cats.jpg  http://images.cocodataset.org/val2017/000000039769.jpg
+sofa.jpg  https://www.flickr.com/photos/robertofaccenda/53298793956/https://www.publicdomainpictures.net/en/view-image.php?image=266750&picture=living-room-with-sofa
+living-room.jpg https://www.publicdomainpictures.net/en/view-image.php?image=266755&picture=interior-living-room
+cat-cake.jpg  https://www.publicdomainpictures.net/en/view-image.php?image=393136&picture=birthday-vintage-postcard-cat
+carrots.jpg https://www.publicdomainpictures.net/en/view-image.php?image=61789&picture=carrots
+umbrella.jpg  https://www.publicdomainpictures.net/en/view-image.php?image=389333&picture=umbrella-girl
+horse1.jpg  https://www.loc.gov/resource/fsac.1a35022/
+horse2.jpg  https://www.loc.gov/resource/hec.44386/
+horse3.jpg  https://www.loc.gov/resource/highsm.41636/?r=-0.237,-0.011,1.43,0.888,0
