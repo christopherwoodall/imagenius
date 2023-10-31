@@ -1,3 +1,4 @@
 squirrel.jpg  https://www.flickr.com/photos/cseeman/53298793956/
 cars.jpg  https://openverse.org/image/47785e93-aea1-4e7f-915c-50cf92ec8fb9
 street.jpg  https://www.flickr.com/photos/spongeg/53297902597/
+cats.jpg  http://images.cocodataset.org/val2017/000000039769.jpg
