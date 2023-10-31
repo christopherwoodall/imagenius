@@ -40,7 +40,8 @@ function searchTags() {
         // Process and display the search results
         Object.keys(data).forEach(imagePath => {
             const imgElement = document.createElement('img');
-            imgElement.src = imagePath;  // Assuming the imagePath is a full URL or relative path
+            const filename = imagePath.split("/").pop();
+            imgElement.src = `https://127.0.0.1:6000/image/${filename}`;
             imgElement.alt = 'Found image';
             imgElement.width = 200;  // Set width for display
 
