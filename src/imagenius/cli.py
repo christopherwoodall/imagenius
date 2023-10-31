@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import requests
 from transformers import DetrImageProcessor, DetrForObjectDetection
 import torch
@@ -7,7 +7,8 @@ import requests
 from pathlib import Path
 
 
-# app = Flask(__name__)
+app = Flask(__name__, template_folder="./www")
+
 MODEL_PORT = 5000
 
 # url = "http://images.cocodataset.org/val2017/000000039769.jpg"
@@ -19,7 +20,7 @@ processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50", revisi
 model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50", revision="no_timm")
 
 
-def main():
+def detect():
     config = 0.8
 
     inputs = processor(images=image, return_tensors="pt")
@@ -36,6 +37,11 @@ def main():
         )
 
 
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
 # @app.route('/upload', methods=['POST'])
 # def upload_file():
 #     file = request.files["file"]
@@ -44,6 +50,6 @@ def main():
 #     tags = response.json()
 #     return jsonify({"tags": tags})
 
-if __name__ == '__main__':
-    # app.run(debug=True, port=5000)
-    ...
+
+def main():
+    app.run(debug=True, port=6000)
