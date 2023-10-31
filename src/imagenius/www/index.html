@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Tagging Gallery</title>
+    <style>
+        /* Add your CSS styling here */
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to the Image Tagging Gallery</h1>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search for tags...">
+        <button onclick="searchTags()">Search</button>
+    </div>
+
+    <script>
+        // Add your JavaScript here
+        function searchTags() {
+            const query = document.getElementById('searchBar').value;
+            // Call backend API to perform the search
+            console.log(`Searching for: ${query}`);
+        }
+    </script>
+
+</body>
+</html>
