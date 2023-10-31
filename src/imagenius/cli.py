@@ -3,7 +3,9 @@ from pathlib import Path
 import torch
 import requests
 
-from flask import Flask, request, jsonify, render_template
+from io import BytesIO
+
+from flask import Flask, request, jsonify, render_template, send_file
 from flask_cors import CORS
 
 from transformers import DetrImageProcessor, DetrForObjectDetection
@@ -19,7 +21,7 @@ CORS(app) # https://flask-cors.readthedocs.io/en/latest/
 MODEL_PORT = 5000
 
 
-gallery_path = Path(__file__).parent / "www/gallery"
+gallery_path = Path(__file__).parent.parent.parent / "gallery"
 # image = Image.open(image_file)
 
 
@@ -33,6 +35,8 @@ def detect(query=None):
 
     for image_file in gallery_path.glob("*.jpg"):
         image = Image.open(image_file)
+        byte_io = BytesIO()
+        image.save(byte_io, "JPEG")
 
         inputs = processor(images=image, return_tensors="pt")
         outputs = model(**inputs)
@@ -50,6 +54,7 @@ def detect(query=None):
                 "label": model.config.id2label[label.item()],
                 "score": round(score.item(), 3),
                 "box": box,
+                "bytes": byte_io.getvalue().hex(),
             }
 
     return client_results
@@ -65,6 +70,13 @@ def search():
     query = request.args.get("query")
     results = detect(query)
     return jsonify(results)
+
+
+@app.route("/image/<path:filename>")
+def image(filename):
+    image_data = detect().get(f"/gallery/{filename}")["bytes"]
+    byte_io = BytesIO(bytes.fromhex(image_data))
+    return send_file(byte_io, mimetype="image/jpeg")
 
 
 # @app.route("/upload", methods=["POST"])
