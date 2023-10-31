@@ -18,40 +18,39 @@ CORS(app) # https://flask-cors.readthedocs.io/en/latest/
 
 MODEL_PORT = 5000
 
-# url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-# image = Image.open(requests.get(url, stream=True).raw)
-image_file = Path(__file__).parent.parent.parent / "gallery/street.jpg"
-image = Image.open(image_file)
+
+gallery_path = Path(__file__).parent / "www/gallery"
+# image = Image.open(image_file)
+
 
 processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50", revision="no_timm")
 model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50", revision="no_timm")
 
 
-def detect():
+def detect(query=None):
     confidence = 0.8
+    client_results = {}
 
-    inputs = processor(images=image, return_tensors="pt")
-    outputs = model(**inputs)
+    for image_file in gallery_path.glob("*.jpg"):
+        image = Image.open(image_file)
 
-    target_sizes = torch.tensor([image.size[::-1]])
-    results = processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=confidence)[0]
+        inputs = processor(images=image, return_tensors="pt")
+        outputs = model(**inputs)
 
-    client_results = []
-    for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
-        box = [round(i, 2) for i in box.tolist()]
-        client_results.append(
-            {
+        target_sizes = torch.tensor([image.size[::-1]])
+        results = processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=confidence)[0]
+
+        for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
+            if query and model.config.id2label[label.item()] != query:
+                continue
+
+            box = [round(i, 2) for i in box.tolist()]
+
+            client_results[f"/gallery/{image_file.name}"] = {
                 "label": model.config.id2label[label.item()],
                 "score": round(score.item(), 3),
                 "box": box,
             }
-        )
-        # print(
-        #         f"Detected {model.config.id2label[label.item()]} with confidence "
-        #         f"{round(score.item(), 3)} at location {box}"
-        # )
-
-    print(client_results)
 
     return client_results
 
@@ -64,11 +63,7 @@ def home():
 @app.route("/search")
 def search():
     query = request.args.get("query")
-
-    results = detect()
-    print(results)
-    # detection = detect(query)
-
+    results = detect(query)
     return jsonify(results)
 
 
