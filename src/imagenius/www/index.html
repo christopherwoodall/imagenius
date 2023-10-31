@@ -12,21 +12,26 @@
 </head>
 <body>
 
-    <h1>Welcome to the Image Tagging Gallery</h1>
+    <h1>Imagenius</h1>
 
     <div class="search-container">
         <input type="text" id="searchBar" placeholder="Search for tags...">
         <button onclick="searchTags()">Search</button>
     </div>
 
-    <script>
-        // Add your JavaScript here
-        function searchTags() {
-            const query = document.getElementById('searchBar').value;
-            // Call backend API to perform the search
-            console.log(`Searching for: ${query}`);
-        }
-    </script>
+
+<script>
+function searchTags() {
+    const query = document.getElementById('searchBar').value;
+    fetch(`https://127.0.0.1:6000/search?query=${query}`)
+    .then(response => response.json())
+    .then(data => {
+        // Process and display the search results
+        console.log(data);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+}
+</script>
 
 </body>
 </html>
