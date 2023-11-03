@@ -15,7 +15,7 @@ from PIL import Image
 __name__ = 'imagenius'
 
 
-app = Flask(__name__, template_folder="./www")
+app = Flask(__name__, template_folder="./www", static_folder="./www/assets")
 CORS(app) # https://flask-cors.readthedocs.io/en/latest/
 
 MODEL_PORT = 5000
