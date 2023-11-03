@@ -1,5 +1,6 @@
 # Imagenius
 
+![demo](demo.gif)
 
 ## Overview
 
@@ -31,10 +32,6 @@ imagenius
 1. Open your web browser and go to `http://localhost:3000`.
 2. Drag and drop an image onto the upload area or select an image via the file picker.
 3. View the automatically generated tags for the image.
-
-
-## To Do
-  [ ] Move tags to database to enable more efficient tag modification and searching.
 
 
 ## Contributions
