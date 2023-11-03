@@ -34,10 +34,6 @@ imagenius
 3. View the automatically generated tags for the image.
 
 
-## To Do
-  [ ] Move tags to database to enable more efficient tag modification and searching.
-
-
 ## Contributions
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
