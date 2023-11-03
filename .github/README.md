@@ -1,6 +1,6 @@
 # Imagenius
 
-![demo](.github/demo.gif)
+![demo](demo.gif)
 
 ## Overview
 
