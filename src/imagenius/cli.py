@@ -91,7 +91,7 @@ def image(filename):
 def main():
     app.run(
         host="0.0.0.0",
-        port=6000,
+        port=3000,
         ssl_context="adhoc",
         debug=True,
     )
